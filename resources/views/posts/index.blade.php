@@ -7,6 +7,8 @@
         @if ($posts->count())
 
             <x-post-grid :posts="$posts" />
+
+            {{ $posts->links() }}
             
         @else
             
