@@ -21,9 +21,11 @@
                     </span>
                 @enderror
 
-                <x-submit-button>
-                    Post
-                </x-submit-button>
+                <div class="flex justify-end mt-6 border-t border-gray-200 pt-6">
+                    <x-submit-button>
+                        Post
+                    </x-submit-button>
+                </div>
             </div>
         </form>
     </x-panel>
