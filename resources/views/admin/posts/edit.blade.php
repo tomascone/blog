@@ -52,8 +52,8 @@
                 <x-form.label name="status" />
 
                 <select name="status" id="status">
-                    <option value="0" {{ !$post->status ? 'selected' : '' }}>Not Published</option>
-                    <option value="1" {{ $post->status ? 'selected' : '' }}>Published</option>
+                    <option value="0" {{ !old('status', $post->status) ? 'selected' : '' }}>Not Published</option>
+                    <option value="1" {{ old('status', $post->status) ? 'selected' : '' }}>Published</option>
                 </select>
                 
                 <x-form.error name="status" />

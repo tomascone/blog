@@ -9,9 +9,13 @@
 
             <x-form.input name="thumbnail" type="file" />
 
-            <x-form.textarea name="excerpt" />
-
-            <x-form.textarea name="body" />
+            <x-form.textarea name="excerpt">
+                {{ old('excerpt') }}
+            </x-form.textarea>
+            
+            <x-form.textarea name="body">
+                {{ old('body') }}
+            </x-form.textarea>
 
             <x-form.field>
                 <x-form.label name="category" />
@@ -23,6 +27,17 @@
                 </select>
                 
                 <x-form.error name="category" />
+            </x-form.field>
+
+            <x-form.field>
+                <x-form.label name="status" />
+
+                <select name="status" id="status">
+                    <option value="0" {{ !old('status') ? 'selected' : '' }}>Not Published</option>
+                    <option value="1" {{ old('status') ? 'selected' : '' }}>Published</option>
+                </select>
+                
+                <x-form.error name="status" />
             </x-form.field>
 
             <x-form.button>
