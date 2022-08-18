@@ -17,8 +17,10 @@ class PostController extends Controller
 
     public function show(Post $post)
     {
-        return view('posts.show', [
+        $cookie = $post->increseViews();
+
+        return response()->view('posts.show', [
             'post' => $post
-        ]);
+        ])->withCookie($cookie);
     }
 }

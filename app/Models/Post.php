@@ -4,8 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 use Spatie\Feed\Feedable;
 use Spatie\Feed\FeedItem;
+use Illuminate\Support\Str;
 
 class Post extends Model implements Feedable
 {
@@ -44,6 +48,22 @@ class Post extends Model implements Feedable
     public function author()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function increseViews()
+    {
+        if(! Auth::check()){
+            $cookie_name = (Str::replace('.','',(request()->ip())).'-'. $this->id);
+        } else {
+            $cookie_name = (Auth::user()->id.'-'. $this->id);
+        }
+
+        if(!Cookie::get($cookie_name)){
+            $this->increment('views');
+            return cookie($cookie_name, '1', 60);;
+        }
+
+        return Cookie::get($cookie_name);
     }
 
     public function toFeedItem(): FeedItem
