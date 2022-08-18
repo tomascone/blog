@@ -37,3 +37,7 @@ Route::post('logout', [SessionsController::class, 'destroy'])->middleware('auth'
 Route::middleware('can:admin')->group(function () {
     Route::resource('admin/posts', AdminPostController::class)->except('show');
 });
+
+// Feed
+
+Route::feeds('/feed');
