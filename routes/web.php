@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminPostController;
+use App\Http\Controllers\FollowController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\PostCommentsController;
 use App\Http\Controllers\PostController;
@@ -39,5 +40,8 @@ Route::middleware('can:admin')->group(function () {
 });
 
 // Feed
-
 Route::feeds('/feed');
+
+// Follow
+Route::post('follow/{user:id}', [FollowController::class, 'store']);
+Route::delete('follow/{user:id}', [FollowController::class, 'destroy']);
