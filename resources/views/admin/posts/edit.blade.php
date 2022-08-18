@@ -36,6 +36,17 @@
                 <x-form.error name="category" />
             </x-form.field>
 
+            <x-form.field>
+                <x-form.label name="status" />
+
+                <select name="status" id="status">
+                    <option value="0" {{ !$post->status ? 'selected' : '' }}>Not Published</option>
+                    <option value="1" {{ $post->status ? 'selected' : '' }}>Published</option>
+                </select>
+                
+                <x-form.error name="status" />
+            </x-form.field>
+
             <x-form.button>
                 Update
             </x-form.button>
