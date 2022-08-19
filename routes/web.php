@@ -8,6 +8,7 @@ use App\Http\Controllers\PostCommentsController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionsController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,14 +24,18 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PostController::class, 'index'])->name('home');
 
+// Posts
 Route::get('posts/{post:slug}', [PostController::class, 'show'])->name('post');
 Route::post('posts/{post:slug}/comments', [PostCommentsController::class, 'store']);
 
+// Newsletter
 Route::post('newsletter', NewsletterController::class);
 
+// Register
 Route::get('register', [RegisterController::class, 'create'])->middleware('guest');
 Route::post('register', [RegisterController::class, 'store'])->middleware('guest');
 
+// Login/Logout
 Route::get('login', [SessionsController::class, 'create'])->middleware('guest');
 Route::post('login', [SessionsController::class, 'store'])->middleware('guest');
 Route::post('logout', [SessionsController::class, 'destroy'])->middleware('auth');
@@ -51,3 +56,7 @@ Route::delete('follow/{user:id}', [FollowController::class, 'destroy'])->middlew
 Route::get('bookmarks/', [BookmarkController::class, 'index'])->middleware('auth');
 Route::post('bookmark/{post:id}', [BookmarkController::class, 'store'])->middleware('auth');
 Route::delete('bookmark/{post:id}', [BookmarkController::class, 'destroy'])->middleware('auth');
+
+// User
+Route::get('profile/edit', [UserController::class, 'edit'])->middleware('auth');
+Route::patch('profile/edit', [UserController::class, 'update'])->middleware('auth');

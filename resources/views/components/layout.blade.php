@@ -34,6 +34,8 @@
                             <x-dropdown-item href="/admin/posts/create" :active="request()->is('admin/posts/create')">New Post</x-dropdown-item>
                         @endadmin
 
+                        <x-dropdown-item href="/profile/edit">Edit Profile</x-dropdown-item>
+
                         <x-dropdown-item href="/bookmarks">Bookmarks</x-dropdown-item>
 
                         <x-dropdown-item href="#" x-date="{}" @click.prevent="document.querySelector('#logout-form').submit()">Log Out</x-dropdown-item>

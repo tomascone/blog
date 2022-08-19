@@ -89,19 +89,19 @@ class Post extends Model implements Feedable
 
     public function sendNotificationMailToFollowers()
     {
-        if ($this->status) {
-            $emails = User::whereIn('id', $this->author->followed->pluck('user_id'))->pluck('email')->toArray();
-            $subject = ucfirst(auth()->user()->name) . ' has published a new post';
+        // if ($this->status) {
+        //     $emails = User::whereIn('id', $this->author->followed->pluck('user_id'))->pluck('email')->toArray();
+        //     $subject = ucfirst(auth()->user()->name) . ' has published a new post';
 
-            Mail::send('emails.new-post', $this->toArray(), function ($message) use ($emails, $subject) {
-                $message->to($emails)->subject($subject);
-                $message->from(config('mail.mailers.smtp.username'), 'Blog');
-            });
+        //     Mail::send('emails.new-post', $this->toArray(), function ($message) use ($emails, $subject) {
+        //         $message->to($emails)->subject($subject);
+        //         $message->from(config('mail.mailers.smtp.username'), 'Blog');
+        //     });
 
-            return true;
-        }
+        //     return true;
+        // }
 
-        return false;
+        // return false;
     }
 
     public function toFeedItem(): FeedItem
