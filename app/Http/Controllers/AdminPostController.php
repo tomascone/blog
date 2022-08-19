@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -62,18 +63,18 @@ class AdminPostController extends Controller
         return back()->with('success', 'Post Deleted!');
     }
 
-    protected function validatePost(?Post $post = null):array
-    {   
+    protected function validatePost(?Post $post = null): array
+    {
         $post ??= new Post();
 
         $attributes = request()->validate([
             'title' => 'required',
-            'thumbnail' => $post->exists ? ['image'] : ['required','image'],
+            'thumbnail' => $post->exists ? ['image'] : ['required', 'image'],
             'slug' => ['required', Rule::unique('posts', 'slug')->ignore($post)],
             'excerpt' => 'required',
             'body' => 'required',
             'category_id' => ['required', Rule::exists('categories', 'id')],
-            'user_id' => ['required', Rule::exists('users', 'id')],
+            'user_id' => $post->exists ? ['required', Rule::exists('users', 'id')] : [Rule::exists('users', 'id')],
             'status' => ['required', 'boolean'],
         ]);
 
