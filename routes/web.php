@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminPostController;
+use App\Http\Controllers\BookmarkController;
 use App\Http\Controllers\FollowController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\PostCommentsController;
@@ -43,5 +44,10 @@ Route::middleware('can:admin')->group(function () {
 Route::feeds('/feed');
 
 // Follow
-Route::post('follow/{user:id}', [FollowController::class, 'store']);
-Route::delete('follow/{user:id}', [FollowController::class, 'destroy']);
+Route::post('follow/{user:id}', [FollowController::class, 'store'])->middleware('auth');
+Route::delete('follow/{user:id}', [FollowController::class, 'destroy'])->middleware('auth');
+
+// Bookmarks
+Route::get('bookmarks/', [BookmarkController::class, 'index'])->middleware('auth');
+Route::post('bookmark/{post:id}', [BookmarkController::class, 'store'])->middleware('auth');
+Route::delete('bookmark/{post:id}', [BookmarkController::class, 'destroy'])->middleware('auth');

@@ -17,6 +17,49 @@
                                 <a href="/?author={{ $post->author->username }}">
                                     {{ $post->author->name }}
                                 </a>
+                            </h5>
+
+                        @if ($post->author->followed->contains('user_id', auth()->id()))   
+                            <form method="POST" action="/follow/{{ $post->author->id }}">
+                                @csrf
+                                @method('DELETE')
+
+                                <x-form.button>
+                                    Following
+                                </x-form.button>
+                            </form>
+                        @else
+                            <form method="POST" action="/follow/{{ $post->author->id }}">
+                                @csrf
+
+                                <x-form.button>
+                                    Follow
+                                </x-form.button>
+                            </form>
+                        @endif
+                            
+
+                        @if ($post->bookmarks->contains('user_id', auth()->id()))
+                            <form method="POST" action="/bookmark/{{ $post->id }}">
+                                @csrf
+                                @method('DELETE')
+
+                                <x-form.button>
+                                    <i class="fas fa-bookmark mr-2"></i>
+                                    Remove from Bookmark
+                                </x-form.button>
+                            </form>
+                        @else
+                            <form method="POST" action="/bookmark/{{ $post->id }}">
+                                @csrf
+
+                                <x-form.button>
+                                    <i class="fas fa-bookmark mr-2"></i>
+                                    Add to Bookmark
+                                </x-form.button>
+                            </form>
+                        @endif
+
                         </div>
                     </div>
                 </div>

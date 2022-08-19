@@ -66,6 +66,11 @@ class Post extends Model implements Feedable
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    public function bookmarks()
+    {
+        return $this->hasMany(Bookmark::class);
+    }
+
     public function increseViews()
     {
         if (!Auth::check()) {
